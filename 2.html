@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Localização via IP sem GPS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Básico -->
+  <title>Localização via IP + Notícias sobre GPS</title>
+  <meta name="description" content="Veja sua localização aproximada via IP e confira curiosidades e informações sobre o uso de GPS em navegadores. Sem acesso real ao GPS.">
+  <meta name="keywords" content="localização, GPS, geolocalização, IP, localização via IP, navegador, sem GPS, JavaScript, HTML">
+  <meta name="author" content="Seu Nome ou Projeto">
+  <meta name="robots" content="index, follow">
+
+  <!-- Tema da página -->
+  <meta name="theme-color" content="#f9d423">
+
+  <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Veja sua Localização por IP e Saiba Mais sobre o GPS">
+  <meta property="og:description" content="Visualize sua localização com base no IP e veja informações sobre o GPS. Não usamos GPS real.">
+
+  <meta property="og:image" content="https://seusite.com/imagens/gps-preview.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Localização por IP + Informações sobre GPS">
+  <meta name="twitter:description" content="Obtenha sua localização aproximada por IP e veja fatos interessantes sobre o GPS.">
+  <meta name="twitter:image" content="https://seusite.com/imagens/gps-preview.jpg">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+    #localizacao {
+      background-color: #fff;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+      max-width: 400px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    h1 {
+      text-align: center;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Localização Aproximada via IP</h1>
+  <div id="localizacao">Carregando localização...</div>
+
+  <script>
+    fetch('https://api64.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        const ip = data.ip;
+        return fetch(`https://ipwhois.app/json/${ip}`);
+      })
+      .then(response => response.json())
+      .then(info => {
+        document.getElementById('localizacao').innerHTML = `
+          <p><strong>IP:</strong> ${info.ip}</p>
+          <p><strong>País:</strong> ${info.country}</p>
+          <p><strong>Região:</strong> ${info.region}</p>
+          <p><strong>Cidade:</strong> ${info.city}</p>
+          <p><strong>Latitude:</strong> ${info.latitude}</p>
+          <p><strong>Longitude:</strong> ${info.longitude}</p>
+        `;
+      })
+      .catch(error => {
+        document.getElementById('localizacao').textContent = 'Erro ao obter localização.';
+        console.error('Erro:', error);
+      });
+  </script>
+
+</body>
+</html>
