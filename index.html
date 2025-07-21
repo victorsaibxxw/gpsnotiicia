@@ -99,7 +99,7 @@
 
   <script>
     // Parte 1: Obter localização via IP
-    fetch('https://ip-api.com/json/')
+    fetch('https://ipinfo.io/json?token=733eee2189387b')
       .then(response => response.json())
       .then(data => {
         if (data.status === "success") {
