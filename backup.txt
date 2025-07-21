@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Responsividade para dispositivos móveis -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Básico -->
+  <title>Localização via IP + Notícias sobre GPS</title>
+  <meta name="description" content="Veja sua localização aproximada via IP e confira curiosidades e informações sobre o uso de GPS em navegadores. Sem acesso real ao GPS.">
+  <meta name="keywords" content="localização, GPS, geolocalização, IP, localização via IP, navegador, sem GPS, JavaScript, HTML">
+  <meta name="author" content="Seu Nome ou Projeto">
+  <meta name="robots" content="index, follow">
+
+  <!-- Tema da página -->
+  <meta name="theme-color" content="#f9d423">
+
+  <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Veja sua Localização por IP e Saiba Mais sobre o GPS">
+  <meta property="og:description" content="Visualize sua localização com base no IP e veja informações sobre o GPS. Não usamos GPS real.">
+  <meta property="og:url" content="https://seusite.com/exemplo">
+  <meta property="og:image" content="https://seusite.com/imagens/gps-preview.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Localização por IP + Informações sobre GPS">
+  <meta name="twitter:description" content="Obtenha sua localização aproximada por IP e veja fatos interessantes sobre o GPS.">
+  <meta name="twitter:image" content="https://seusite.com/imagens/gps-preview.jpg">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f7f7f7;
+    }
+    .box {
+      background-color: #eaeaea;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    #ads {
+      background: linear-gradient(135deg, #ff4e50, #f9d423);
+      width: 320px;
+      height: 160px;
+      border-radius: 16px;
+      font-size: 18px;
+      color: white;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    #ads:hover {
+      transform: scale(1.03);
+    }
+    #ads a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      padding: 10px 15px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    #ads a:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📍 Localização Aproximada (via IP)</h2>
+  <div id="localizacao" class="box">Carregando localização...</div>
+
+  <h2>🛰️ Notícias sobre o GPS</h2>
+  <div id="ads">
+    <a href="https://victorsaibxxw.github.io/youtubelink/" target="_blank" rel="noopener noreferrer">CONFERIR A OPORTUNIDADE</a>
+  </div>
+  <div class="box">
+    <ul id="noticiasGPS"></ul>
+  </div>
+
+  <script>
+    // Parte 1: Obter localização via IP usando ipinfo.io
+    fetch('https://ipinfo.io/json?token=733eee2189387b')
+      .then(response => response.json())
+      .then(data => {
+        const localDiv = document.getElementById('localizacao');
+        if (data.loc) {
+          const [lat, lon] = data.loc.split(',');
+
+          localDiv.innerHTML = `
+            <strong>País:</strong> ${data.country} <br>
+            <strong>Estado/Região:</strong> ${data.region} <br>
+            <strong>Cidade:</strong> ${data.city} <br>
+            <strong>Latitude:</strong> ${lat} <br>
+            <strong>Longitude:</strong> ${lon} <br>
+            <strong>IP:</strong> ${data.ip}
+          `;
+        } else {
+          localDiv.textContent = "Não foi possível obter sua localização via IP.";
+        }
+      })
+      .catch(error => {
+        document.getElementById('localizacao').textContent = "Erro ao buscar localização via IP.";
+        console.error("Erro ao obter IP:", error);
+      });
+
+    // Parte 2: Notícias sobre o GPS
+    const noticias = [
+      "O GPS permite localizar com precisão de até poucos metros.",
+      "Este site não está usando o GPS, apenas o IP.",
+      "A geolocalização por GPS depende da permissão do usuário.",
+      "GPS é mais preciso que IP, mas consome mais bateria.",
+      "É possível bloquear o uso de GPS pelo navegador.",
+      "Dispositivos móveis geralmente têm GPS embutido.",
+      "Navegadores modernos suportam geolocalização via GPS.",
+      "O uso do GPS pode ser restrito por políticas de privacidade.",
+      "GPS é essencial para apps de navegação como Google Maps.",
+      "Você está visualizando sua localização sem ativar o GPS."
+    ];
+
+    const lista = document.getElementById('noticiasGPS');
+    noticias.forEach(msg => {
+      const li = document.createElement('li');
+      li.textContent = msg;
+      lista.appendChild(li);
+    });
+  </script>
+
+</body>
+</html>
